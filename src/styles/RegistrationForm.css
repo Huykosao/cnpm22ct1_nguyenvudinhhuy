@@ -1,0 +1,96 @@
+.loginButton{
+    margin-left: 10px;
+    border: none;
+    background-color: aliceblue;
+    text-decoration: underline;
+    color: blue;
+}
+.loginButton:hover{
+    cursor: pointer;
+}
+.mainContainer {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .titleContainer {
+    font-size: 64px;
+    font-weight: bolder;
+  
+  }
+  
+  .resultContainer,
+  .historyItem {
+    flex-direction: row;
+    display: flex;
+    width: 400px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  historyContainer {
+    flex-direction: column;
+    display: flex;
+    height: 200px;
+    align-items: center;
+    flex-grow: 5;
+    justify-content: flex-start;
+  }
+  
+  .buttonContainer {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 260px; */
+    margin-left: 420px;
+  }
+  
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: center;
+    color: #ABABAB;
+    text-align: left;
+    
+  }
+  
+  
+  .inputContainer > .errorLabel {
+    color: red;
+    font-size: 12px;
+  }
+  
+  .inputBox {
+    height: 48px;
+    width: 400px;
+    font-size: large;
+    border-radius: 8px;
+    border: 1px solid grey;
+    padding-left: 8px;
+    border: none;
+    background-color: #F2F2F2;
+  }
+  .inputBox::placeholder{
+    color: #ABABAB;
+  }
+  .inputButton{
+    width:400px;
+    padding: 6px;
+    height: 40px;
+    background-color: #222222;
+    border: none;
+    color: white;
+    font-size: 13px;
+    border-radius: 15px;
+  }
+  .inputButton:hover{
+    cursor: pointer;
+  }
+  .reginter{
+    text-align: right;
+  }
+  

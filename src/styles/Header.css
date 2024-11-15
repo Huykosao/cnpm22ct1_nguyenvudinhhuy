@@ -1,0 +1,108 @@
+/* General Header Styling */
+.header {
+    background-color: white;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 20px;
+}
+
+/* Top Menu Styling */
+.top-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+}
+
+.shop-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.login-link:hover {
+    color: red;
+    transition: 0.5s;
+}
+
+.user-icon img {
+    height: 24px;
+    width: 24px;
+}
+
+/* Bottom Menu Styling */
+.bottom-menu {
+    border-top: 1px solid #e0e0e0;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: red;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+/* Search Form Styling */
+.search-form {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: right;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    flex-grow: 1;
+    max-width: 400px; /* Limit the width */
+}
+
+.search-button {
+    padding: 10px 20px;
+    margin-left: 8px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}

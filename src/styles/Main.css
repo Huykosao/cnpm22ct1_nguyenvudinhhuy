@@ -1,0 +1,320 @@
+/* Main Content */
+.main-content {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-areas: 
+        "featured featured"
+        "main side";
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    background-color: #f5f5f5;
+}
+
+/* Featured Section */
+.featured-section {
+    grid-area: featured;
+    padding: 6px;
+}
+
+.featured-banner {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: linear-gradient(45deg, #003791, #0055b8);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+}
+
+.placeholder-text {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+    
+}
+
+.logo-text {
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.price-text {
+    font-size: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 24px;
+    border-radius: 24px;
+}
+
+/* Console Banners Section */
+.console-banners {
+    grid-area: main;
+    padding: 6px;
+}
+
+.banner-grid {
+    display: grid;
+    grid-template-areas:
+        "ps5 ps5 switch switch"
+        "xbox steam rog samsung";
+    gap: 20px;
+    width: 100%;
+}
+
+.banner-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+/* Grid areas for specific consoles */
+.banner-item[data-console="ps5"] { grid-area: ps5; }
+.banner-item[data-console="switch"] { grid-area: switch; }
+.banner-item[data-console="xbox"] { grid-area: xbox; }
+.banner-item[data-console="steam"] { grid-area: steam; }
+.banner-item[data-console="rog"] { grid-area: rog; }
+.banner-item[data-console="samsung"] { grid-area: samsung; }
+
+.banner-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    text-align: center;
+}
+
+.console-logo {
+    font-size: 32px;
+}
+
+.console-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Side Banners */
+.side-banners {
+    grid-area: side;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.side-banner {
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    aspect-ratio: 4/3;
+    background: linear-gradient(45deg, #2d3436, #636e72);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.banner-title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .banner-grid {
+        grid-template-areas:
+            "ps5 ps5"
+            "switch switch"
+            "xbox steam"
+            "rog samsung";
+    }
+}
+
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-areas:
+            "featured"
+            "main"
+            "side";
+        grid-template-columns: 1fr;
+    }
+
+    .side-banners {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .featured-banner {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 16px;
+    }
+
+    .banner-grid {
+        grid-template-areas:
+            "ps5"
+            "switch"
+            "xbox"
+            "steam"
+            "rog"
+            "samsung";
+    }
+
+    .side-banners {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-banner {
+        height: 250px;
+    }
+
+    .logo-text {
+        font-size: 36px;
+    }
+
+    .price-text {
+        font-size: 20px;
+    }
+}
+
+/* Loading Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.banner-item, .featured-banner, .side-banner {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Stagger animation for grid items */
+.banner-item:nth-child(1) { animation-delay: 0.1s; }
+.banner-item:nth-child(2) { animation-delay: 0.2s; }
+.banner-item:nth-child(3) { animation-delay: 0.3s; }
+.banner-item:nth-child(4) { animation-delay: 0.4s; }
+.banner-item:nth-child(5) { animation-delay: 0.5s; }
+.banner-item:nth-child(6) { animation-delay: 0.6s; }
+/* Product List Section */
+.product-list-section {
+    padding: 40px 0;
+}
+
+.product-list-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    color: #2c3e50;
+    position: relative;
+}
+
+.product-list-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #2c3e50;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.product-item {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.product-item h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 16px 0 8px;
+    color: #2c3e50;
+}
+
+.product-item p {
+    color: #6c757d;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .featured-product {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .product-image-placeholder {
+        width: 250px;
+        height: 250px;
+    }
+
+    .product-details {
+        max-width: 100%;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+
+    .product-list {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
