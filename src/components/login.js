@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../styles/RegistrationForm.css';
 import { useNavigate } from 'react-router-dom'
-// import Header from './Header';
+import Header from './Header';
 
 const Login = (props) => {
   const [email, setEmail] = useState('')
@@ -42,6 +42,7 @@ const Login = (props) => {
     
     // Authentication calls will be made here...
   }
+  
 
   // Function to navigate to the Register page
   const goToRegister = () => {
@@ -49,43 +50,44 @@ const Login = (props) => {
   }
 
   return (
-    <div className={'mainContainer'}>
-      
-      <div className={'titleContainer'}>
-        <div>Đăng Nhập</div>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <label>Nhập Tên TK Hoặc Email Đăng Nhập: <br></br>
-        <input
-          value={email}
-          placeholder="Nhập Email"
-          onChange={(ev) => setEmail(ev.target.value)}
-          className={'inputBox'}
-        /></label>
-        <label className="errorLabel">{emailError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <label>Nhập Mật Khẩu: <br></br>
-        <input
-          type='password'
-          value={password}
-          placeholder="Nhập Mật Khẩu"
-          onChange={(ev) => setPassword(ev.target.value)}
-          className={'inputBox'}
-        /></label>
-        <label className="errorLabel">{passwordError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Đăng Nhập'} />
-      </div>
-      <br />
-      {/* Replace <a> with a button or div that triggers navigate */}
-      <div className='reginter'>
-        Bạn chưa Có Tài Khoản : 
-        <button className="loginButton" onClick={goToRegister}>Đăng Ký Tài Khoản!!</button>
+    <div><Header/>
+      <div className={'mainContainer'}>
+        <div className={'titleContainer'}>
+          <div>Đăng Nhập</div>
+        </div>
+        <br />
+        <div className={'inputContainer'}>
+          <label>Nhập Tên TK Hoặc Email Đăng Nhập: <br></br>
+          <input
+            value={email}
+            placeholder="Nhập Email"
+            onChange={(ev) => setEmail(ev.target.value)}
+            className={'inputBox'}
+          /></label>
+          <label className="errorLabel">{emailError}</label>
+        </div>
+        <br />
+        <div className={'inputContainer'}>
+          <label>Nhập Mật Khẩu: <br></br>
+          <input
+            type='password'
+            value={password}
+            placeholder="Nhập Mật Khẩu"
+            onChange={(ev) => setPassword(ev.target.value)}
+            className={'inputBox'}
+          /></label>
+          <label className="errorLabel">{passwordError}</label>
+        </div>
+        <br />
+        <div className={'inputContainer'}>
+          <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Đăng Nhập'} />
+        </div>
+        <br />
+        {/* Replace <a> with a button or div that triggers navigate */}
+        <div className='reginter'>
+          Bạn chưa Có Tài Khoản : 
+          <button className="loginButton" onClick={goToRegister}>Đăng Ký Tài Khoản!!</button>
+        </div>
       </div>
     </div>
   )

@@ -9,7 +9,7 @@ const port = 8080;  // Bạn có thể thay đổi cổng
 app.use(cors());
 app.use(express.json());  // Để đọc JSON từ frontend
 
-// Kết nối MySQL
+// Kết nối MySQL 
 const connection = mysql.createConnection({
   host: 'localhost', // Thường là localhost khi sử dụng XAMPP
   user: 'root',  // Tên người dùng MySQL
@@ -36,7 +36,8 @@ app.get('/api/users', (req, res) => {
     }
   });
 });
-app.post('/api/users', (req, res) => {
+
+app.post('/api/login', (req, res) => {
   const { email, username, MatKhau } = req.body;
   connection.query(
     'SELECT * FROM user WHERE (email = ? OR username = ?) AND MatKhau = ?',
@@ -47,6 +48,35 @@ app.post('/api/users', (req, res) => {
       } else {
         res.json(results); // Trả về kết quả
       }
+    }
+  );
+});
+
+app.post('/api/register', (req, res) => {
+  const { email, username, matkhau, sdt } = req.body;
+
+  connection.query(
+    'SELECT * FROM user WHERE email = ? OR username = ?',
+    [email, username],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({ message: 'Lỗi truy vấn CSDL' });
+      }
+
+      if (results.length > 0) {
+        return res.status(400).json({ message: 'Đã Tồn Tại email hoặc Tên tài Khoản' });
+      }
+
+      const insertQuery = 'INSERT INTO user (email, username, matkhau, sdt) VALUES (?, ?, ?, ?)';
+      connection.query(insertQuery, [email, username, matkhau, sdt], (err, result) => {
+        if (err) {
+          return res.status(500).json({ message: '111111' ,
+            error: err,
+          });
+        }
+
+        res.status(201).json({ message: 'Đăng ký thành công' });
+      });
     }
   );
 });

@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+import Home from './home';
+
 import "../styles/Header.css";
 
 const Header = () => {
@@ -13,18 +16,23 @@ const Header = () => {
         
         console.log("Search for:", searchTerm);
     };
+    const navigate = useNavigate()
+
+    const goHome = () => {
+        navigate('/')  
+      }
 
     return (
         <header className="header">
             <div className="top-menu">
-                <div className="logo">
-                    <img src="https://media.dau.edu.vn/Media/1_TH1057/Images/logo-dhktdn-150.png" alt="Logo" />
+                <div className="logo" onClick={goHome}>
+                    <img  src="https://media.dau.edu.vn/Media/1_TH1057/Images/logo-dhktdn-150.png" alt="Logo" />
                     <span className="shop-name">HUYSHOP</span>
                 </div>
                 <div className="user-section">
                     <a href="/login" className="login-link">Đăng Nhập</a>/<a href="/register" className="login-link">Đăng Ký</a>
-                    <div className="user-icon">
-                        <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="User" />
+                    <div className="user-icon" >
+                        <img  src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="User" />
                     </div>
                 </div>
             </div>

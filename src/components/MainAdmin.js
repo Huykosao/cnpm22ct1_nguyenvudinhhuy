@@ -41,12 +41,7 @@ const MainAdmin = () => {
                     >
                         Quản lý Sản phẩm
                     </button>
-                    <button 
-                        className={`nav-item ${selectedSection === 'orders' ? 'active' : ''}`}
-                        onClick={() => setSelectedSection('orders')}
-                    >
-                        Quản lý Đơn hàng
-                    </button>
+                    
                     <button 
                         className={`nav-item ${selectedSection === 'customers' ? 'active' : ''}`}
                         onClick={() => setSelectedSection('customers')}
@@ -146,13 +141,6 @@ const MainAdmin = () => {
                         <h2>Quản lý Sản phẩm</h2>
                         <button className="add-btn">Thêm Sản phẩm Mới</button>
                         {/* Add your product management content here */}
-                    </div>
-                )}
-
-                {selectedSection === 'orders' && (
-                    <div className="section-container">
-                        <h2>Quản lý Đơn hàng</h2>
-                        {/* Add your order management content here */}
                     </div>
                 )}
 
