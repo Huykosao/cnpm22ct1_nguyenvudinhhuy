@@ -16,6 +16,7 @@ const RegistrationForm = () => {
     const [sdtError, setSdtError] = useState('');
     const [tk, setTk] = useState('');
     const [tkError, setTkError] = useState('');
+    const [register,setRegister] = useState('');
 
     const navigate = useNavigate();
 
@@ -85,10 +86,9 @@ const RegistrationForm = () => {
                     'Content-Type': 'application/json',
                 }
             }).then(response => {
-                console.log('Registration successful:', response);
-                navigate('/login');  // Redirect to login page after successful registration
+                navigate('/login');
             }).catch(error => {
-                console.error('There was an error registering:', error.response);
+                setRegister(error.response.data.message)
             });
         }
     };
@@ -174,6 +174,7 @@ const RegistrationForm = () => {
 
                 <div className={'inputContainer'}>
                     <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Đăng Ký'} />
+                    <label className="errorLabel">{register}</label>
                 </div>
 
                 <div className='login'>

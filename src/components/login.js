@@ -2,45 +2,65 @@ import React, { useState } from 'react'
 import '../styles/RegistrationForm.css';
 import { useNavigate } from 'react-router-dom'
 import Header from './Header';
+import axios from 'axios'
 
 const Login = (props) => {
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
+  const [loginError, setLoginError] = useState('');
   
 
   const navigate = useNavigate()
+
+  let valid = true;
 
   const onButtonClick = () => {
     // Set initial error values to empty
     setEmailError('')
     setPasswordError('')
-  
-    // Check if the user has entered both fields correctly
-    if ('' === email) {
-      setEmailError('Vui Lòng Nhập Email')
-      return
-    }
-  
-    if (!/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/.test(email)) {
-      setEmailError('Sai Định Dạng Email VD : abc@gmail.com');
-      return;
-    }
     
+    // Check if the user has entered both fields correctly
+    if ('' === usernameOrEmail) {
+      setEmailError('Vui Lòng Nhập Email')
+      valid = false;
+    }
     if ('' === password) {
       setPasswordError('Vui Lòng Nhập Password')
-      return
+      valid = false;
     }
-    
-      
   
     if (password.length < 7) {
       setPasswordError('Mật khẩu tối thiệu 8 kí tự')
-      return
+      valid = false;
     }
     
-    // Authentication calls will be made here...
+    if(valid){
+      axios
+        .post('http://localhost:8080/api/login', {
+          usernameOrEmail: usernameOrEmail,
+          matkhau: password,
+        })
+        .then((response) => {
+          const { token, user } = response.data;
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(user));
+
+          console.log('Đăng nhập thành công:', user);
+
+          navigate('/'); 
+        })
+        .catch((error) => {
+          if (error.response && error.response.data.message) {
+            setLoginError(error.response.data.message);
+          } else {
+            setLoginError('Đăng nhập thất bại, vui lòng thử lại');
+          }
+        });
+    }
+    
   }
   
 
@@ -59,9 +79,9 @@ const Login = (props) => {
         <div className={'inputContainer'}>
           <label>Nhập Tên TK Hoặc Email Đăng Nhập: <br></br>
           <input
-            value={email}
+            value={usernameOrEmail}
             placeholder="Nhập Email"
-            onChange={(ev) => setEmail(ev.target.value)}
+            onChange={(ev) => setUsernameOrEmail(ev.target.value)}
             className={'inputBox'}
           /></label>
           <label className="errorLabel">{emailError}</label>
@@ -81,6 +101,7 @@ const Login = (props) => {
         <br />
         <div className={'inputContainer'}>
           <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Đăng Nhập'} />
+          <label className="errorLabel">{loginError}</label>
         </div>
         <br />
         {/* Replace <a> with a button or div that triggers navigate */}

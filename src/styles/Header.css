@@ -50,6 +50,9 @@
     color: red;
     transition: 0.5s;
 }
+.logged-in{
+    display: flex;
+}
 
 .user-icon img {
     height: 24px;
@@ -80,6 +83,19 @@
     color: red;
     transition: 0.5s;
     cursor: pointer;
+}
+.logout-button{
+    padding: 4px 8px;
+    border: none;
+    background-color: orange;
+    color: #000000;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.logout-button:hover{
+    color: rgb(255, 255, 255);
+    transition: 0.5s;
 }
 
 /* Search Form Styling */

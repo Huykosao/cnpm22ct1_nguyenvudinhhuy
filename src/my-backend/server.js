@@ -26,7 +26,6 @@ connection.connect((err) => {
   console.log('Đã kết nối đến CSDL MySQL');
 });
 
-// API Endpoint - Ví dụ truy vấn dữ liệu
 app.get('/api/users', (req, res) => {
   connection.query('SELECT * FROM user', (err, results) => {
     if (err) {
@@ -37,19 +36,35 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-app.post('/api/login', (req, res) => {
-  const { email, username, MatKhau } = req.body;
-  connection.query(
-    'SELECT * FROM user WHERE (email = ? OR username = ?) AND MatKhau = ?',
-    [email, username, MatKhau],
-    (err, results) => {
-      if (err) {
-        res.status(500).json({ message: 'Lỗi truy vấn CSDL' });
-      } else {
-        res.json(results); // Trả về kết quả
-      }
+app.get('api/products',(req, res) => {
+  connection.query('SELECT * FROM product', (err, results) => {
+    if (err) {
+      res.status(500).json({ message: 'Lỗi truy vấn CSDL' });
+    } else {
+      res.json(results);  // Trả về kết quả
     }
-  );
+  });
+})
+
+app.post('/api/login', (req, res) => {
+  const { usernameOrEmail, matkhau } = req.body;
+
+  // Truy vấn CSDL với điều kiện email hoặc username
+  const query = `
+    SELECT * FROM user 
+    WHERE (email = ? OR username = ?) AND matkhau = ?
+  `;
+  connection.query(query, [usernameOrEmail, usernameOrEmail, matkhau], (err, results) => {
+    if (err) {
+      console.error('Lỗi truy vấn:', err);
+      res.status(500).json({ message: 'Lỗi truy vấn CSDL' });
+    } else if (results.length === 0) {
+      res.status(401).json({ message: 'Tên Đăng Nhập Hoặc Mật khẩu Không Đúng' });
+    } else {
+      // Trả về thông tin người dùng (có thể bao gồm token)
+      res.json({ message: 'Đăng nhập thành công', user: results[0] });
+    }
+  });
 });
 
 app.post('/api/register', (req, res) => {

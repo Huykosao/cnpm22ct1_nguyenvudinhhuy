@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import "../styles/MainAdmin.css";
+import axios from 'axios';
 
 const MainAdmin = () => {
     const [selectedSection, setSelectedSection] = useState('dashboard');
@@ -147,7 +148,9 @@ const MainAdmin = () => {
                 {selectedSection === 'customers' && (
                     <div className="section-container">
                         <h2>Quản lý Khách hàng</h2>
+                        
                         {/* Add your customer management content here */}
+
                     </div>
                 )}
             </div>
