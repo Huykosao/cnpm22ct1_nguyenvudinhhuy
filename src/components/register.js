@@ -92,6 +92,11 @@ const RegistrationForm = () => {
             });
         }
     };
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") {
+            onButtonClick(); 
+        }
+    };
     
 
     const goToLogin = () => {
@@ -102,10 +107,11 @@ const RegistrationForm = () => {
         <div>
             <Header />
             <div className={'mainContainer'}>
+            <div className="rightContainer">
                 <div className={'titleContainer'}>
+                <img src="https://media.dau.edu.vn/Media/1_TH1057/Images/logo-dhktdn-150.png" alt="Logo" />
                     <div>Đăng Ký</div>
                 </div>
-
                 <div className="inputContainer">
                     <label>Tên TK :</label>
                     <input
@@ -113,11 +119,10 @@ const RegistrationForm = () => {
                         className="inputBox"
                         onChange={(ev) => setTk(ev.target.value)}
                         placeholder="asd"
+                        onKeyDown={handleKeyPress}
                     />
                     <label className="errorLabel">{tkError}</label>
                 </div>
-                <br />
-
                 <div className={'inputContainer'}>
                     <label>Số Điện Thoại: <br />
                         <input
@@ -125,11 +130,11 @@ const RegistrationForm = () => {
                             placeholder="Nhập Số Điện Thoại"
                             onChange={(ev) => setSdt(ev.target.value)}
                             className={'inputBox'}
+                            onKeyDown={handleKeyPress}
                         />
                     </label>
                     <label className="errorLabel">{sdtError}</label>
                 </div>
-                <br />
 
                 <div className={'inputContainer'}>
                     <label>Email: <br />
@@ -138,12 +143,11 @@ const RegistrationForm = () => {
                             placeholder="Nhập Email"
                             onChange={(ev) => setEmail(ev.target.value)}
                             className={'inputBox'}
+                            onKeyDown={handleKeyPress}
                         />
                     </label>
                     <label className="errorLabel">{emailError}</label>
                 </div>
-                <br />
-
                 <div className={'inputContainer'}>
                     <label>Nhập Mật Khẩu: <br />
                         <input
@@ -152,35 +156,34 @@ const RegistrationForm = () => {
                             placeholder="Nhập Mật Khẩu"
                             onChange={(ev) => setPassword(ev.target.value)}
                             className={'inputBox'}
+                            onKeyDown={handleKeyPress}
                         />
                     </label>
                     <label className="errorLabel">{passwordError}</label>
                 </div>
-                <br />
-
                 <div className={'inputContainer'}>
-                    <label>Xác Nhận Mật Khẩu: <br />
+                    <label>Xác Nhận Mật Khẩu:<br />
                         <input
                             type='password'
                             value={repassword}
                             placeholder="Nhập Lại Mật Khẩu"
                             onChange={(ev) => setRepassword(ev.target.value)}
                             className={'inputBox'}
+                            onKeyDown={handleKeyPress}
                         />
                     </label>
                     <label className="errorLabel">{repasswordError}</label>
                 </div>
                 <br />
-
                 <div className={'inputContainer'}>
                     <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Đăng Ký'} />
                     <label className="errorLabel">{register}</label>
                 </div>
-
-                <div className='login'>
+                <div className='reginter'>
                     Bạn Đã Có Tài Khoản :
                     <button className="loginButton" onClick={goToLogin}>Đăng Nhập!!!</button>
                 </div>
+            </div>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 /* Admin Dashboard Styles */
 .admin-dashboard {
     display: flex;
-    min-height: 100vh;
+    height: 87.1vh;
     background-color: #f5f5f5;
 }
 
@@ -117,12 +117,12 @@
 .admin-table td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border: 1px solid #eee;
 }
 
 .admin-table th {
-    background-color: #f8f9fa;
-    font-weight: 600;
+    background-color: #3399ff;
+    font-weight: 700;
 }
 
 .action-btn {

@@ -1,97 +1,91 @@
+.mainContainer {
+  display: flex;
+  justify-content: right;
+  height: 93.5vh;
+  background-image: url('https://i.extremetech.com/imagery/content-types/01C0F6s7PzYXtedavpRDS1L/hero-image.fit_lim.v1732207319.png');
+  background-size: cover;
+  padding: 20px;
+}
 
 
-.loginButton{
-    margin-left: 10px;
-    border: none;
-    background-color: aliceblue;
-    text-decoration: underline;
-    color: blue;
+.rightContainer {
+  background-color: rgba(6, 7, 66, 0.781); 
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  min-width: 400px;
+  align-items: right;
+  animation: fadeInLeft 0.7s ease forwards;
+}
+
+.titleContainer {
+  text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.inputContainer {
+  margin-bottom: 15px;
+  text-align: left;
+  color: white;
+  
+}
+
+.inputBox {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.inputButton {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.inputButton:hover {
+  background-color: #0056b3;
+}
+
+.errorLabel {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+.reginter {
+  text-align: center;
+  margin-top: 20px;
+  color: white;
+}
+
+.loginButton {
+  background: none;
+  color: blue;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
 }
 .loginButton:hover{
-    cursor: pointer;
+  color: red;
 }
-.mainContainer {
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
   }
-  .titleContainer {
-    font-size: 64px;
-    font-weight: bolder;
-  
+  100% {
+    opacity: 1;
+    transform: translateX(0); 
   }
-  
-  .resultContainer,
-  .historyItem {
-    flex-direction: row;
-    display: flex;
-    width: 400px;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .historyContainer {
-    flex-direction: column;
-    display: flex;
-    height: 200px;
-    align-items: center;
-    flex-grow: 5;
-    justify-content: flex-start;
-  }
-  
-  .buttonContainer {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 260px; */
-    margin-left: 420px;
-  }
-  
-  .inputContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; 
-    justify-content: center;
-    color: #ABABAB;
-    text-align: left;
-    
-  }
-  
-  
-  .inputContainer > .errorLabel {
-    color: red;
-    font-size: 12px;
-  }
-  
-  .inputBox {
-    height: 48px;
-    width: 400px;
-    font-size: large;
-    border-radius: 8px;
-    border: 1px solid grey;
-    padding-left: 8px;
-    border: none;
-    background-color: #F2F2F2;
-  }
-  .inputBox::placeholder{
-    color: #ABABAB;
-  }
-  .inputButton{
-    width:400px;
-    padding: 6px;
-    height: 40px;
-    background-color: #222222;
-    border: none;
-    color: white;
-    font-size: 13px;
-    border-radius: 15px;
-  }
-  .inputButton:hover{
-    cursor: pointer;
-  }
-  .reginter{
-    text-align: right;
-  }
-  
+}

@@ -1,31 +1,30 @@
-import React  from 'react'; 
-// import { useNavigate} from 'react-router-dom'; // Thêm Link từ react-router-dom
-import { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useUser } from './UserContext'; 
 import Header from './Header';
-import Main from './main' ;
+import Main from './main';
 import Footer from './Footer';
 import MainAdmin from './MainAdmin';
-import axios from 'axios';
 
+const Home = () => {
+  const { user } = useUser(); 
+  const [site, setSite] = useState(<Main />); 
+  const [footerComponent, setFooterComponent] = useState(<Footer />); 
 
-const Home = (props) => {
-  const [site,SetSite] = useState(<Main />)
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    
     if (user && user.username === 'admin') {
-      SetSite(<MainAdmin />);
+      setSite(<MainAdmin />); 
+      setFooterComponent(null); 
     } else {
-      SetSite(<Main />);
+      setSite(<Main />); 
+      setFooterComponent(<Footer />); 
     }
-  }, []);
-  
+  }, [user]);
 
   return (
     <div>
       <Header />
-        {site}
-      <Footer />
+      {site}
+      {footerComponent}
     </div>
   );
 };

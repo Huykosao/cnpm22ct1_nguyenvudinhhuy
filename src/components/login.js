@@ -1,43 +1,40 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react';
 import '../styles/RegistrationForm.css';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import Header from './Header';
-import axios from 'axios'
+import { UserContext } from './UserContext';
+import axios from 'axios';
 
-const Login = (props) => {
+const Login = () => {
+  const { login } = useContext(UserContext);
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [loginError, setLoginError] = useState('');
-  
 
-  const navigate = useNavigate()
-
-  let valid = true;
+  const navigate = useNavigate();
 
   const onButtonClick = () => {
-    // Set initial error values to empty
-    setEmailError('')
-    setPasswordError('')
-    
-    // Check if the user has entered both fields correctly
-    if ('' === usernameOrEmail) {
-      setEmailError('Vui Lòng Nhập Email')
+    setEmailError('');
+    setPasswordError('');
+
+    let valid = true;
+
+    if (usernameOrEmail === '') {
+      setEmailError('Vui lòng nhập Email hoặc Tên tài khoản');
       valid = false;
     }
-    if ('' === password) {
-      setPasswordError('Vui Lòng Nhập Password')
+
+    if (password === '') {
+      setPasswordError('Vui lòng nhập mật khẩu');
+      valid = false;
+    } else if (password.length < 8) {
+      setPasswordError('Mật khẩu tối thiểu 8 kí tự');
       valid = false;
     }
-  
-    if (password.length < 7) {
-      setPasswordError('Mật khẩu tối thiệu 8 kí tự')
-      valid = false;
-    }
-    
-    if(valid){
+
+    if (valid) {
       axios
         .post('http://localhost:8080/api/login', {
           usernameOrEmail: usernameOrEmail,
@@ -50,7 +47,11 @@ const Login = (props) => {
 
           console.log('Đăng nhập thành công:', user);
 
-          navigate('/'); 
+
+          login(user);
+
+
+          navigate('/');
         })
         .catch((error) => {
           if (error.response && error.response.data.message) {
@@ -60,58 +61,76 @@ const Login = (props) => {
           }
         });
     }
-    
-  }
-  
+  };
 
-  // Function to navigate to the Register page
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      onButtonClick();
+    }
+  };
+
   const goToRegister = () => {
-    navigate('/register')  // Use navigate to go to the register page
-  }
+    navigate('/register');
+  };
 
   return (
-    <div><Header/>
-      <div className={'mainContainer'}>
-        <div className={'titleContainer'}>
-          <div>Đăng Nhập</div>
-        </div>
-        <br />
-        <div className={'inputContainer'}>
-          <label>Nhập Tên TK Hoặc Email Đăng Nhập: <br></br>
-          <input
-            value={usernameOrEmail}
-            placeholder="Nhập Email"
-            onChange={(ev) => setUsernameOrEmail(ev.target.value)}
-            className={'inputBox'}
-          /></label>
-          <label className="errorLabel">{emailError}</label>
-        </div>
-        <br />
-        <div className={'inputContainer'}>
-          <label>Nhập Mật Khẩu: <br></br>
-          <input
-            type='password'
-            value={password}
-            placeholder="Nhập Mật Khẩu"
-            onChange={(ev) => setPassword(ev.target.value)}
-            className={'inputBox'}
-          /></label>
-          <label className="errorLabel">{passwordError}</label>
-        </div>
-        <br />
-        <div className={'inputContainer'}>
-          <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Đăng Nhập'} />
-          <label className="errorLabel">{loginError}</label>
-        </div>
-        <br />
-        {/* Replace <a> with a button or div that triggers navigate */}
-        <div className='reginter'>
-          Bạn chưa Có Tài Khoản : 
-          <button className="loginButton" onClick={goToRegister}>Đăng Ký Tài Khoản!!</button>
+    <div>
+      <Header />
+      <div className="mainContainer">
+        <div className="rightContainer">
+          <div className="titleContainer">
+            <img
+              src="https://media.dau.edu.vn/Media/1_TH1057/Images/logo-dhktdn-150.png"
+              alt="Logo"
+            />
+            <div>Đăng Nhập</div>
+          </div>
+          <div className="inputContainer">
+            <label>
+              Nhập Tên TK Hoặc Email Đăng Nhập: <br />
+              <input
+                value={usernameOrEmail}
+                placeholder="Nhập Email hoặc Tên tài khoản"
+                onChange={(ev) => setUsernameOrEmail(ev.target.value)}
+                className="inputBox"
+                onKeyDown={handleKeyPress}
+              />
+            </label>
+            <label className="errorLabel">{emailError}</label>
+          </div>
+          <div className="inputContainer">
+            <label>
+              Nhập Mật Khẩu: <br />
+              <input
+                type="password"
+                value={password}
+                placeholder="Nhập Mật Khẩu"
+                onChange={(ev) => setPassword(ev.target.value)}
+                onKeyDown={handleKeyPress}
+                className="inputBox"
+              />
+            </label>
+            <label className="errorLabel">{passwordError}</label>
+          </div>
+          <div className="inputContainer">
+            <input
+              className="inputButton"
+              type="button"
+              onClick={onButtonClick}
+              value="Đăng Nhập"
+            />
+            <label className="errorLabel">{loginError}</label>
+          </div>
+          <div className="reginter">
+            Bạn chưa Có Tài Khoản:
+            <button className="loginButton" onClick={goToRegister}>
+              Đăng Ký Tài Khoản!!
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

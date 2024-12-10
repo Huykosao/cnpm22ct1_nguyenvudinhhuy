@@ -1,0 +1,81 @@
+.add-product-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+.add-product-title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.add-product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-product-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-product-label {
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+.errorLabel {
+    color: red;
+    font-size: 10px;
+    text-align: left;
+}
+.add-product-input, .add-product-file-input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    overflow: auto;
+}
+
+.add-product-input:focus, .add-product-file-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+
+}
+
+.add-product-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.add-product-button:hover {
+    background-color: #0056b3;
+}
+
+/* Ẩn spinner trên Chrome, Edge, và Safari */
+.add-product-input::-webkit-inner-spin-button,
+.add-product-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Ẩn spinner trên Firefox */
+.add-product-input[type=number] {
+  -moz-appearance: textfield;
+}
