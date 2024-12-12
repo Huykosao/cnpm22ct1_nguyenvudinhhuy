@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../styles/MainAdmin.css";
-// import axios from 'axios';
+
 import CRUDProduct from './CRUDProducts';
 
 const MainAdmin = () => {
@@ -68,7 +68,7 @@ const MainAdmin = () => {
     }
     function handleAdd() {
         if (CRUDShow) {
-            SetCRUDShow(false);  // Quay lại, ẩn CRUDProduct
+            SetCRUDShow(false);
             SetaddBack('Thêm Sản phẩm Mới');
             SetTitle('Quản lý Sản phẩm')
         } else {
@@ -80,7 +80,6 @@ const MainAdmin = () => {
 
     const handleAccept = async (orderId) => {
         try {
-            // Gửi yêu cầu PUT để cập nhật trạng thái đơn hàng trong cơ sở dữ liệu
             await axios.put(`http://localhost:8080/api/order/confirm/${orderId}`);
 
             const updatedOrders = orders.map(order => {

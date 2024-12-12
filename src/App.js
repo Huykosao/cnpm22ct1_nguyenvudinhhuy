@@ -8,6 +8,7 @@ import ProductDetail from './components/ProductDetail';
 import Cart from './components/Cart';
 import OrderPage from './components/OrderPage';
 import './App.css';
+import Profile from './components/Profile';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
@@ -17,6 +18,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
+            
             <Route
               path="/"
               element={<Home email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
@@ -26,6 +28,7 @@ function App() {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/Cart" element={<Cart />} />
             <Route path="/OrderPage" element={<OrderPage />} />
+            <Route path='/Profile' element={<Profile />} />
           </Routes>
         </BrowserRouter>
       </div>

@@ -37,6 +37,9 @@ const Header = () => {
         logout(); 
         window.location.href = '/'; 
     };
+    const goToProfile = () => {
+        navigate('/Profile');
+    }
 
     const isLoginPage = location.pathname === '/login' || location.pathname === '/register';
 
@@ -77,7 +80,7 @@ const Header = () => {
                         <nav className="nav-links">
                             <button onClick={goHome}>Trang Chủ</button>
                             <button onClick={goToCart}>Giỏ Hàng</button>
-                            <button href="/profile">Thông Tin cá Nhân</button>
+                            <button onClick={goToProfile}>Thông Tin cá Nhân</button>
                         </nav>
                     ) : (
                         <div></div>

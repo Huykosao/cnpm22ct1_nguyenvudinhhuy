@@ -33,8 +33,26 @@ app.get('/api/users', (req, res) => {
     if (err) {
       res.status(500).json({ message: 'Lỗi truy vấn CSDL' });
     } else {
-      res.json(results);  // Trả về kết quả
+      res.json(results); 
     }
+  });
+});
+
+app.get('/api/users/:id', (req, res) => {
+  const id = req.params.id;
+  const sql = 'SELECT * FROM user WHERE user_id = ?';
+
+  connection.query(sql, [id], (err, results) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).json({ message: 'Lỗi !' });
+      }
+
+      if (results.length === 0) {
+          return res.status(404).json({ message: 'Không tìm thấy!' });
+      }
+
+      res.json(results[0]);
   });
 });
 
@@ -83,9 +101,7 @@ app.get('/api/products/:id', (req, res) => {
 app.post('/api/products', (req, res) => {
   const { Name, image, soluong, mota, gia } = req.body;
 
-  if (!Name || typeof gia !== 'number' || gia <= 0 || typeof soluong !== 'number' || soluong < 0) {
-    return res.status(400).json({ message: 'Thông tin sản phẩm không hợp lệ!' });
-  }
+
 
   const sql = `
       INSERT INTO sanpham (Name, gia, soluong, mota, image)
@@ -364,20 +380,47 @@ app.post('/api/order', (req, res) => {
 app.put('/api/order/confirm/:id', (req, res) => {
   const { id } = req.params;
 
-  const query = 'UPDATE orders SET order_status = 1, update_at = NOW() WHERE order_id = ?';
+  // Truy vấn vừa cập nhật vừa lấy user_id
+  const query = `
+    UPDATE orders 
+    SET order_status = 1, update_at = NOW() 
+    WHERE order_id = ?;
+  `;
   connection.query(query, [id], (err, results) => {
     if (err) {
       console.error('Lỗi khi xác nhận đơn hàng:', err);
-      return res.status(500).send('Lỗi khi xác nhận đơn hàng');
+      return res.status(500).json({ error: 'Lỗi khi xác nhận đơn hàng' });
     }
 
     if (results.affectedRows > 0) {
-      res.status(200).send('Đơn hàng đã được xác nhận');
+      const getUserQuery = 'SELECT user_id FROM orders WHERE order_id = ?';
+      connection.query(getUserQuery, [id], (err, userResult) => {
+        if (err) {
+          console.error('Lỗi khi lấy thông tin người dùng:', err);
+          return res.status(500).json({ error: 'Lỗi khi lấy thông tin người dùng' });
+        }
+
+        if (userResult.length > 0) {
+          const userId = userResult[0].user_id;
+
+          // Gửi thông báo
+          if (typeof sendNotificationToUser === 'function') {
+            sendNotificationToUser(`${userId}`, `Đơn hàng của bạn đã được xác nhận.`);
+          } else {
+            console.warn('sendNotificationToUser chưa được định nghĩa!');
+          }
+
+          return res.status(200).json({ message: 'Đơn hàng đã được xác nhận' });
+        } else {
+          return res.status(404).json({ error: 'Không tìm thấy thông tin người dùng cho đơn hàng này' });
+        }
+      });
     } else {
-      res.status(404).send('Không tìm thấy đơn hàng');
+      return res.status(404).json({ error: 'Không tìm thấy đơn hàng' });
     }
   });
 });
+
 
 
 app.get('/api/orders', (req, res) => {
@@ -438,11 +481,51 @@ app.delete('/api/orders/:id', (req, res) => {
     });
   });
 });
+const WebSocket = require('ws');
 
+// Khởi tạo WebSocket server
+const wss = new WebSocket.Server({ port: 8081 });
 
+// Lưu trữ kết nối của từng người dùng bằng Map
+const clients = new Map();
 
+wss.on('connection', (ws, req) => {
+  try {
+    // Xử lý URL và lấy userId
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const userId = url.searchParams.get('userId');
 
+    if (userId) {
+      // Lưu kết nối vào Map
+      clients.set(userId, ws);
+      console.log(`User ${userId} connected.`);
 
+      // Lắng nghe sự kiện đóng kết nối
+      ws.on('close', () => {
+        clients.delete(userId); // Xóa kết nối khi người dùng ngắt kết nối
+        console.log(`User ${userId} disconnected.`);
+      });
+    } else {
+      console.log('Kết nối không hợp lệ: thiếu userId');
+      ws.close(); // Đóng kết nối nếu không có userId
+    }
+  } catch (error) {
+    console.error('Lỗi khi xử lý kết nối WebSocket:', error);
+    ws.close(); // Đóng kết nối nếu có lỗi
+  }
+});
+
+// Hàm gửi thông báo tới một người dùng cụ thể
+const sendNotificationToUser = (userId, message) => {
+  const client = clients.get(userId);
+  if (client && client.readyState === WebSocket.OPEN) {
+    client.send(JSON.stringify({ message }));
+    console.log(`Thông báo đã được gửi tới user ${userId}`);
+  } else {
+    console.log('Danh sách websocketClients:', client);
+    console.error(`Không thể gửi thông báo cho user ${userId}, kết nối WebSocket không tồn tại.`);
+  }
+};
 
 
 // Chạy server

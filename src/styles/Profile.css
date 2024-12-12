@@ -1,0 +1,40 @@
+.profile-container {
+
+    min-height: 70vh;
+    
+  }
+  
+  .profile-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .profile-title {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-details {
+    font-family: Arial, sans-serif;
+  }
+  
+  .profile-field {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .profile-field strong {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .profile-field span {
+    color: #555;
+    text-transform: capitalize;
+  }
+  

@@ -5,6 +5,7 @@ import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 import "../styles/Cart.css";
+import Notification from './Notification';
 
 const Cart = () => {
     const { user } = useContext(UserContext);
@@ -72,6 +73,7 @@ const Cart = () => {
     return (
         <div>
             <Header />
+            <Notification />
             <div className="cart-container">
                 <h2>Giỏ hàng</h2>
                 {cart.length === 0 ? (
